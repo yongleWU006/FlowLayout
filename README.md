@@ -32,7 +32,9 @@ flowLayout.setTags(tags)//设置标签个数，文本
                     .setTagBackground(R.drawable.shape_orange)//设置标签样式，点击样式
                     .setTagPadding(20,10,20,10)//设置标签padding值
                     .setTagMargin(10,10,10,10)//设置标签margin值
-                    .initTags()//加载所有标签
+                    .setTagLine(2)//设置标签文本行数
+                    .setAvgModel(true)//设置标签均分铺满模式
+                    .initTags()//加载所有标签
                     .setOnTagClickListener(new FlowLayout.OnTagClickListener() {
                         @Override
                         public void onTagClick(View view, String tagText, int position) {//设置标签点击事件
@@ -47,9 +49,11 @@ flowLayout.setTags(tags)//设置标签个数，文本
 2. setTagBackground(int resId) 根据参数决定标签样式或者点击变化样式
 3. setTagPadding(int left,int top,int right,int bottom) 设置标签padding值
 4. setTagMargin(int left,int top,int right,int bottom) 设置标签margin值
-5. initTags() 加载所有标签(必须在4.1~4.4之后调用)
-6. setOnTagClickListener(FlowLayout.OnTagClickListener listener) 设置标签点击事件
-7. removeAllTag() 清除所有标签，在onDestory调用
+5. setTagLine(int line) 设置标签文本行数
+6. setAvgModel(boolean) 设置标签均分铺满模式
+7. initTags() 加载所有标签(必须在1~6之后调用)
+8. setOnTagClickListener(FlowLayout.OnTagClickListener listener) 设置标签点击事件
+9. removeAllTag() 清除所有标签，在onDestory调用
   ```
   @Override
     protected void onDestroy() {
