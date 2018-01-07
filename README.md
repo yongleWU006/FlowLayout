@@ -45,22 +45,55 @@ flowLayout.setTags(tags)//设置标签个数，文本
 ```
 
 ## FlowLayout API（链式调用）
-1. setTag（List<String>） 根据参数集合决定标签的个数
-2. setTagBackground(int resId) 根据参数决定标签样式或者点击变化样式
-3. setTagPadding(int left,int top,int right,int bottom) 设置标签padding值
-4. setTagMargin(int left,int top,int right,int bottom) 设置标签margin值
-5. setTagLine(int line) 设置标签文本行数
-6. setAvgModel(boolean) 设置标签均分铺满模式
-7. initTags() 加载所有标签(必须在1~6之后调用)
-8. setOnTagClickListener(FlowLayout.OnTagClickListener listener) 设置标签点击事件
-9. removeAllTag() 清除所有标签，在onDestory调用
-  ```
-  @Override
-    protected void onDestroy() {
-        flowLayout.removeAllTag();
-        super.onDestroy();
-    }
-  ```
+#### 1. setTag（List<String>）
+```
+根据参数集合决定标签的个数
+```
+    
+#### 2. setTagBackground(int resId)
+```
+根据参数决定标签样式或者点击变化样式
+```
+
+#### 3. setTagPadding(int left,int top,int right,int bottom) 
+```
+设置标签padding值
+```
+
+#### 4. setTagMargin(int left,int top,int right,int bottom)
+```
+设置标签margin值
+```
+
+#### 5. setTagLine(int line)
+```
+设置标签文本行数
+```
+
+#### 6. setAvgModel(boolean)
+```
+设置标签均分铺满模式
+```
+
+#### 7. initTags() 
+```
+加载所有标签(必须在1~6之后调用)
+```
+
+#### 8. setOnTagClickListener(FlowLayout.OnTagClickListener listener)
+```
+设置标签点击事件
+```
+
+#### 9. removeAllTag()
+```
+清除所有标签，在onDestory调用
+@Override
+protected void onDestroy() {
+   flowLayout.removeAllTag();
+   super.onDestroy();
+}
+```
   
 ## FlowLayout.OnTagClickListener
 1. onTagClick(View view, String tagText, int position)
