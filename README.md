@@ -83,6 +83,14 @@ flowLayout.setTags(tags)//设置标签个数，文本
 #### 8. setOnTagClickListener(FlowLayout.OnTagClickListener listener)
 ```
 设置标签点击事件
+
+FlowLayout.OnTagClickListener 标签点击接口
+1. onTagClick(View view, String tagText, int position)
+ ```
+ view--标签View
+ tagText--标签内容
+ position--标签index
+ ```
 ```
 
 #### 9. removeAllTag()
@@ -94,14 +102,6 @@ protected void onDestroy() {
    super.onDestroy();
 }
 ```
-  
-## FlowLayout.OnTagClickListener
-1. onTagClick(View view, String tagText, int position)
- ```
- view--标签View
- tagText--标签内容
- position--标签index
- ```
 
 ### 小结：
 项目上传github前，已做过测试，目前暂无发现bug，内存泄漏
