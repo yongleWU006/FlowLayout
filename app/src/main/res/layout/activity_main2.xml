@@ -18,5 +18,6 @@
         app:tag_padding_top="2dp"
         app:tag_padding_bottom="2dp"
         app:tag_drawable="@drawable/selector_blue"
-        app:tag_lines="1"/>
+        app:tag_lines="1"
+        app:tag_avg_model="true"/>
 </android.support.constraint.ConstraintLayout>

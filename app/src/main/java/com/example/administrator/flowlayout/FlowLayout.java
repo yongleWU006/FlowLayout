@@ -35,6 +35,7 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
         bottomPD = (int) array.getDimension(R.styleable.FlowLayout_tag_padding_left,0);
         tagGb = array.getResourceId(R.styleable.FlowLayout_tag_drawable,0);
         line = array.getInteger(R.styleable.FlowLayout_tag_lines,1);
+        avgModel = array.getBoolean(R.styleable.FlowLayout_tag_avg_model,false);
         array.recycle();
     }
 
@@ -97,6 +98,7 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
                 lineWidth += childWidth;
                 //得到当前行最大的高
                 lineHeight = Math.max(lineHeight,childHeight);
+
             }
             //最后一个子view
             if (i == count-1){
@@ -118,6 +120,8 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
     private List<List<View>> allViews = new ArrayList<>();
     //储存每一行的高
     private List<Integer> mLineHeight = new ArrayList<>();
+    //剩余的宽度
+    private List<Integer> residues = new ArrayList<>();
 
     /**
      *设置子view的位置
@@ -160,6 +164,8 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
                 mLineHeight.add(lineHeight);
                 //记录当前一行子view
                 allViews.add(lineViews);
+                //获取换行前剩余的宽度
+                residues.add(width - getPaddingLeft() - getPaddingRight() - lineWidth);
                 //重置行宽
                 lineWidth = 0;
                 //设置下一行高
@@ -178,6 +184,8 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
         mLineHeight.add(lineHeight);
         //储存每一行子view
         allViews.add(lineViews);
+        //获取最后一行剩余的宽度
+        residues.add(width - getPaddingLeft() - getPaddingRight() - lineWidth);
 
         //确定每一行子view，左上角的起点坐标
         int left = getPaddingLeft();
@@ -191,6 +199,8 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
             lineViews = allViews.get(i);
             //得到当前行高
             lineHeight = mLineHeight.get(i);
+            //平均剩余的宽度
+            int avg = residues.get(i)/lineViews.size();
 
             for (int j = 0; j < lineViews.size(); j++){
                 //得到当前行的子view
@@ -198,6 +208,15 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
                 //判断当前子view是否可见
                 if (childView.getVisibility() == GONE){
                     continue;
+                }
+                //是否采用均分模式
+                if (avgModel){
+                    // 获取宽高
+                    int measuredWidth = childView.getMeasuredWidth();
+                    int measuredHeight = childView.getMeasuredHeight();
+                    // 重新测量
+                    childView.measure(MeasureSpec.makeMeasureSpec(measuredWidth + avg, MeasureSpec.EXACTLY),
+                            MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY));
                 }
                 //得到layoutParams
                 MarginLayoutParams layoutParams = (MarginLayoutParams) this.getLayoutParams();
@@ -220,6 +239,9 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
             top += lineHeight;
         }
     }
+
+    //标签排列模式
+    private boolean avgModel = false;
 
     //根据tags集合添加标签
     private List<String> tags;
@@ -257,6 +279,11 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
     //设置标签个数
     public FlowLayout setTags(List<String> tags) {
         this.tags = tags;
+        return this;
+    }
+
+    public FlowLayout setAvgModel(boolean avgModel) {
+        this.avgModel = avgModel;
         return this;
     }
 
@@ -316,7 +343,7 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
                 tag.setText(tags.get(i));
                 tag.setTextColor(tagTextColor);
                 tag.setTextSize(tagTextSize);
-                tag.setGravity(Gravity.CENTER_VERTICAL);
+                tag.setGravity(Gravity.CENTER);
                 tag.setBackgroundResource(tagGb);
                 tag.setPadding(leftPD,topPD,rightPD,bottomPD);
                 tag.setMaxLines(line);
