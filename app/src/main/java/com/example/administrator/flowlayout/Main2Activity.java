@@ -3,20 +3,18 @@ package com.example.administrator.flowlayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity {
     private FlowLayout flowLayout;
     private List<String> tags;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         flowLayout = (FlowLayout) findViewById(R.id.flow_layout);
         tags = new ArrayList<>();
         tags.add("hhaa");
@@ -33,18 +31,13 @@ public class MainActivity extends AppCompatActivity {
         tags.add("hpplly");
         tags.add("nice");
         flowLayout.setTags(tags)//设置标签个数，文本
-                    .setTagBackground(R.drawable.shape_orange)//设置标签样式，点击样式
-                    .setTagPadding(10,10,10,10)//设置标签padding值
-                    .setTagMargin(10,10,10,10)//设置标签margin值
-                    .setTagLine(2)
-                    .initTags()//加载所有标签
-                    .setOnTagClickListener(new FlowLayout.OnTagClickListener() {
-                        @Override
-                        public void onTagClick(View view, String tagText, int position) {//设置标签点击事件
-                            flowLayout.removeView(view);//移除控件
-                            Toast.makeText(MainActivity.this,tagText+"--"+position,Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                .initTags()//加载所有标签
+                .setOnTagClickListener(new FlowLayout.OnTagClickListener() {
+                    @Override
+                    public void onTagClick(View view, String tagText, int position) {//设置标签点击事件
+                        Toast.makeText(Main2Activity.this,tagText+"--"+position,Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 

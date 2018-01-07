@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.administrator.flowlayout.Main2Activity">
+    <com.example.administrator.flowlayout.FlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:tag_margin_left="10dp"
+        app:tag_margin_right="10dp"
+        app:tag_margin_top="10dp"
+        app:tag_margin_bottom="10dp"
+        app:tag_padding_left="2dp"
+        app:tag_padding_right="2dp"
+        app:tag_padding_top="2dp"
+        app:tag_padding_bottom="2dp"
+        app:tag_drawable="@drawable/selector_blue"
+        app:tag_lines="1"/>
+</android.support.constraint.ConstraintLayout>

@@ -1,8 +1,11 @@
 package com.example.administrator.flowlayout;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,6 +23,19 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
 
     public FlowLayout(Context context, AttributeSet attrs) {
         super(context, attrs,0);
+        // 获取自定义属性
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.FlowLayout);
+        leftMG = (int) array.getDimension(R.styleable.FlowLayout_tag_margin_left,0);
+        rightMG = (int) array.getDimension(R.styleable.FlowLayout_tag_margin_right,0);
+        topMG = (int) array.getDimension(R.styleable.FlowLayout_tag_margin_top,0);
+        bottomMG = (int) array.getDimension(R.styleable.FlowLayout_tag_margin_bottom,0);
+        leftPD = (int) array.getDimension(R.styleable.FlowLayout_tag_padding_left,0);
+        rightPD = (int) array.getDimension(R.styleable.FlowLayout_tag_padding_left,0);
+        topPD = (int) array.getDimension(R.styleable.FlowLayout_tag_padding_left,0);
+        bottomPD = (int) array.getDimension(R.styleable.FlowLayout_tag_padding_left,0);
+        tagGb = array.getResourceId(R.styleable.FlowLayout_tag_drawable,0);
+        line = array.getInteger(R.styleable.FlowLayout_tag_lines,1);
+        array.recycle();
     }
 
     public FlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -128,6 +144,15 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
             //得到onMeasure中测量的子view宽高
             int childWidth = childView.getMeasuredWidth();
             int childHeight = childView.getMeasuredHeight();
+            //当一个子view超过父容器的宽时，重新测量当前子view的宽
+            if (childWidth+ layoutParams.rightMargin + layoutParams.leftMargin > width - getPaddingRight() - getPaddingLeft()){
+                //子view之前的宽度减去设置的左右margin值，否则子view会顶出父容器一部分，显示不完整
+                childWidth -= (layoutParams.rightMargin + layoutParams.leftMargin);
+                childView.measure(MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.EXACTLY));
+                childWidth = childView.getMeasuredWidth();
+                childHeight = childView.getMeasuredHeight();
+            }
 
             //换行
             if (childWidth + lineWidth + layoutParams.rightMargin + layoutParams.leftMargin > width - getPaddingRight() - getPaddingLeft()){
@@ -220,6 +245,9 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
     private int topMG = 5;
     private int bottomMG = 5;
 
+    //标签文本行数
+    private int line = 1;
+
     //标签点击回调接口
     private OnTagClickListener onTagClickListener;
 
@@ -267,6 +295,12 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
         return this;
     }
 
+    //设置标签文本行数
+    public FlowLayout setTagLine(int line){
+        this.line = line;
+        return this;
+    }
+
     //设置标签点击接口
     public FlowLayout setOnTagClickListener(OnTagClickListener onTagClickListener) {
         setTagOnClick();
@@ -282,8 +316,11 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener{
                 tag.setText(tags.get(i));
                 tag.setTextColor(tagTextColor);
                 tag.setTextSize(tagTextSize);
+                tag.setGravity(Gravity.CENTER_VERTICAL);
                 tag.setBackgroundResource(tagGb);
                 tag.setPadding(leftPD,topPD,rightPD,bottomPD);
+                tag.setMaxLines(line);
+                tag.setEllipsize(TextUtils.TruncateAt.END);
                 MarginLayoutParams params = (MarginLayoutParams) this.getLayoutParams();
                 params.setMargins(leftMG,topMG,rightMG,bottomMG);
                 //给标签设置tag标记

@@ -8,8 +8,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </com.example.administrator.flowlayout.FlowLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="会不会遮住"/>
 </LinearLayout>
