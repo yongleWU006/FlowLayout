@@ -4,8 +4,19 @@ FlowLayout自定义ViewGroup，实现流式标签。
 
 ## 使用步骤：（可参考本项目下的MainActivity）
 
-1. copy本项目下的FlowLayout.java文件到你的项目中，内部是一个自定义ViewGroup的类（实现逻辑有注释）
-2. 在布局文件中直接引用FlowLayout
+### 1. 添加依赖
+```
+compile 'com.yonglelib:flowlayout:1.1.0'
+```
+注意:如果添加依赖报错，在gradle中的allprojects/repositories下添加 maven { url 'https://dl.bintray.com/wuyongle006/maven' }
+```
+allprojects {
+    repositories {
+        maven { url 'https://dl.bintray.com/wuyongle006/maven' }
+    }
+}
+```
+### 2. 在布局文件中直接引用FlowLayout(自定义属性效果)
 ```
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -14,7 +25,19 @@ FlowLayout自定义ViewGroup，实现流式标签。
     <com.example.administrator.flowlayout.FlowLayout
         android:id="@+id/flow_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:tag_margin_left="10dp"//设置标签的margin_left
+        app:tag_margin_right="10dp"//设置标签的margin_right
+        app:tag_margin_top="10dp"//设置标签的margin_top
+        app:tag_margin_bottom="10dp"//设置标签的margin_bottom
+        app:tag_padding_left="2dp"//设置标签的padding_left
+        app:tag_padding_right="2dp"//设置标签的padding_right
+        app:tag_padding_top="2dp"//设置标签的padding_top
+        app:tag_padding_bottom="2dp"//设置标签的padding_bottom
+        app:tag_drawable="@drawable/selector_blue"//设置标签的背景
+        app:tag_lines="1"//设置标签文本行数
+        app:tag_avg_model="true">//设置标签铺满均分模式
+  
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +49,52 @@ FlowLayout自定义ViewGroup，实现流式标签。
     </com.example.administrator.flowlayout.FlowLayout>
 </LinearLayout>
 ```
-3. 在activity/fragment/adapter.viewHolder中findviewById，实例化FlowLayout调用API
+### 3. 布局引用自定义属性
+#### 设置标签的margin_left
+```
+tag_margin_left="10dp"  
+```
+#### 设置标签的margin_right
+```
+tag_margin_right="10dp"
+```
+#### 设置标签的margin_top
+```
+tag_margin_top="10dp"
+```
+#### 设置标签的margin_bottom
+```
+tag_margin_bottom="10dp"
+```
+#### 设置标签的padding_left
+```
+tag_padding_left="2dp"
+```
+#### 设置标签的padding_right
+```
+tag_padding_right="2dp"
+```
+#### 设置标签的padding_top
+```
+tag_padding_top="2dp"
+```
+#### 设置标签的padding_bottom
+```
+tag_padding_bottom="2dp"
+```
+#### 设置标签的背景
+```
+tag_drawable="@drawable/selector_blue"
+```
+#### 设置标签文本行数
+```
+tag_lines="1"
+```
+#### 设置标签铺满均分模式
+```
+tag_avg_model="true"
+```
+### 4. 在activity/fragment/adapter.viewHolder中findviewById，实例化FlowLayout调用API
 ```
 flowLayout.setTags(tags)//设置标签个数，文本
                     .setTagBackground(R.drawable.shape_orange)//设置标签样式，点击样式
