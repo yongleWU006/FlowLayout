@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.administrator.flowlayout.Main2Activity">
-    <com.example.administrator.flowlayout.FlowLayout
+    <com.yongle.flowlib.FlowLayout
         android:id="@+id/flow_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

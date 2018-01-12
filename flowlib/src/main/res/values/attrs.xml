@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FlowLayout">
+        <attr name="tag_margin_left" format="dimension"/>
+        <attr name="tag_margin_right" format="dimension"/>
+        <attr name="tag_margin_top" format="dimension"/>
+        <attr name="tag_margin_bottom" format="dimension"/>
+        <attr name="tag_padding_left" format="dimension"/>
+        <attr name="tag_padding_right" format="dimension"/>
+        <attr name="tag_padding_top" format="dimension"/>
+        <attr name="tag_padding_bottom" format="dimension"/>
+        <attr name="tag_drawable" format="reference"/>
+        <attr name="tag_lines" format="integer"/>
+        <attr name="tag_avg_model" format="boolean"/>
+    </declare-styleable>
+</resources>
